@@ -8,7 +8,7 @@ Define `Struct`s with either sequential or fixed layout and initialize them with
 ### Structs
 Sequential structs calculate their size and the offsets of their fields themselves at runtime. Fixed structs require their fields to have offsets specified explicitely.
 
-Here's an example of the (IMAGE_SECTION_HEADER)[https://docs.microsoft.com/en-us/windows/win32/api/winnt/ns-winnt-image_section_header] structure ported to structex:
+Here's an example of the [IMAGE_SECTION_HEADER](https://docs.microsoft.com/en-us/windows/win32/api/winnt/ns-winnt-image_section_header) structure ported to structex:
 
 ```python
 class IMAGE_SECTION_HEADER(Struct):
