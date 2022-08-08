@@ -64,13 +64,7 @@ class Struct(IMemObject):
                     largest = max(fields, key = lambda value: value.offset + value.get_size())
                     cls._size = largest.offset + largest.get_size()
                 case StructLayout.Sequential:
-                    # fields : List[IField] = inspect.getmembers(cls, lambda fv: isinstance(fv, IField))
-                    # offset = 0
-                    # for name, field in fields:
-                    #     field.offset = offset
-                    #     offset += field.get_size()
-                    # cls._size = offset
-                    pass
+                    raise Exception("")
                 case _:
                     raise NotImplementedError
 

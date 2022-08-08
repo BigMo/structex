@@ -36,66 +36,66 @@ class IMAGE_DOS_HEADER(Struct):
     e_res2_7: int = Primitive(uint16_t) # reserved words
     e_res2_8: int = Primitive(uint16_t) # reserved words
     e_res2_9: int = Primitive(uint16_t) # reserved words
-    e_lfanew: int = Primitive(uint32_t) # 
+    e_lfanew: int = Primitive(uint32_t) 
 
 class IMAGE_FILE_HEADER(Struct):
     _layout: StructLayout = StructLayout.Sequential
 
-    Magic: str = FixedString(4) # 
-    Machine: int = Primitive(uint16_t) # 
-    NumberOfSections: int = Primitive(uint16_t) # 
-    TimeDateStamp: int = Primitive(uint32_t) # 
-    PointerToSymbolTable: int = Primitive(uint32_t) # 
-    NumberOfSymbols: int = Primitive(uint32_t) # 
-    SizeOfOptionalHeader: int = Primitive(uint16_t) # 
-    Characteristics: int = Primitive(uint16_t) # 
+    Magic: str = FixedString(4) 
+    Machine: int = Primitive(uint16_t) 
+    NumberOfSections: int = Primitive(uint16_t) 
+    TimeDateStamp: int = Primitive(uint32_t) 
+    PointerToSymbolTable: int = Primitive(uint32_t) 
+    NumberOfSymbols: int = Primitive(uint32_t) 
+    SizeOfOptionalHeader: int = Primitive(uint16_t) 
+    Characteristics: int = Primitive(uint16_t) 
 
 class IMAGE_OPTIONAL_HEADER64(Struct):
     _layout: StructLayout = StructLayout.Sequential
 
-    Magic: int = Primitive(uint16_t) # 
-    MajorLinkerVersion: int = Primitive(uint8_t) # 
-    MinorLinkerVersion: int = Primitive(uint8_t) # 
-    SizeOfCode: int = Primitive(int32_t) # 
-    SizeOfInitializedData: int = Primitive(int32_t) # 
-    SizeOfUninitializedData: int = Primitive(int32_t) # 
-    AddressOfEntryPoint: int = Primitive(int32_t) # 
-    BaseOfCode: int = Primitive(int32_t) # 
-    ImageBase: int = Primitive(uint64_t) # 
-    SectionAlignment: int = Primitive(int32_t) # 
-    FileAlignment: int = Primitive(int32_t) # 
-    MajorOperatingSystemVersion: int = Primitive(uint16_t) # 
-    MinorOperatingSystemVersion: int = Primitive(uint16_t) # 
-    MajorImageVersion: int = Primitive(uint16_t) # 
-    MinorImageVersion: int = Primitive(uint16_t) # 
-    MajorSubsystemVersion: int = Primitive(uint16_t) # 
-    MinorSubsystemVersion: int = Primitive(uint16_t) # 
-    Win32VersionValue: int = Primitive(int32_t) # 
-    SizeOfImage: int = Primitive(int32_t) # 
-    SizeOfHeaders: int = Primitive(int32_t) # 
-    CheckSum: int = Primitive(int32_t) # 
-    Subsystem: int = Primitive(uint16_t) # 
-    DllCharacteristics: int = Primitive(uint16_t) # 
-    SizeOfStackReserve: int = Primitive(uint64_t) # 
-    SizeOfStackCommit: int = Primitive(uint64_t) # 
-    SizeOfHeapReserve: int = Primitive(uint64_t) # 
-    SizeOfHeapCommit: int = Primitive(uint64_t) # 
-    LoaderFlags: int = Primitive(int32_t) # 
-    NumberOfRvaAndSizes: int = Primitive(int32_t) # 
+    Magic: int = Primitive(uint16_t) 
+    MajorLinkerVersion: int = Primitive(uint8_t) 
+    MinorLinkerVersion: int = Primitive(uint8_t) 
+    SizeOfCode: int = Primitive(int32_t) 
+    SizeOfInitializedData: int = Primitive(int32_t) 
+    SizeOfUninitializedData: int = Primitive(int32_t) 
+    AddressOfEntryPoint: int = Primitive(int32_t) 
+    BaseOfCode: int = Primitive(int32_t) 
+    ImageBase: int = Primitive(uint64_t) 
+    SectionAlignment: int = Primitive(int32_t) 
+    FileAlignment: int = Primitive(int32_t) 
+    MajorOperatingSystemVersion: int = Primitive(uint16_t) 
+    MinorOperatingSystemVersion: int = Primitive(uint16_t) 
+    MajorImageVersion: int = Primitive(uint16_t) 
+    MinorImageVersion: int = Primitive(uint16_t) 
+    MajorSubsystemVersion: int = Primitive(uint16_t) 
+    MinorSubsystemVersion: int = Primitive(uint16_t) 
+    Win32VersionValue: int = Primitive(int32_t) 
+    SizeOfImage: int = Primitive(int32_t) 
+    SizeOfHeaders: int = Primitive(int32_t) 
+    CheckSum: int = Primitive(int32_t) 
+    Subsystem: int = Primitive(uint16_t) 
+    DllCharacteristics: int = Primitive(uint16_t) 
+    SizeOfStackReserve: int = Primitive(uint64_t) 
+    SizeOfStackCommit: int = Primitive(uint64_t) 
+    SizeOfHeapReserve: int = Primitive(uint64_t) 
+    SizeOfHeapCommit: int = Primitive(uint64_t) 
+    LoaderFlags: int = Primitive(int32_t) 
+    NumberOfRvaAndSizes: int = Primitive(int32_t) 
 
 class IMAGE_SECTION_HEADER(Struct):
     _layout: StructLayout = StructLayout.Sequential
 
     Name: str = FixedString(8)
-    VirtualSize: int = Primitive(uint32_t) # 
-    VirtualAddress: int = Primitive(uint32_t) # 
-    SizeOfRawData: int = Primitive(uint32_t) # 
-    PointerToRawData: int = Primitive(uint32_t) # 
-    PointerToRelocations: int = Primitive(uint32_t) # 
-    PointerToLinenumbers: int = Primitive(uint32_t) # 
-    NumberOfRelocations: int = Primitive(uint16_t) # 
-    NumberOfLinenumbers: int = Primitive(uint16_t) # 
-    Characteristics: int = Primitive(uint32_t) # 
+    VirtualSize: int = Primitive(uint32_t) 
+    VirtualAddress: int = Primitive(uint32_t) 
+    SizeOfRawData: int = Primitive(uint32_t) 
+    PointerToRawData: int = Primitive(uint32_t) 
+    PointerToRelocations: int = Primitive(uint32_t) 
+    PointerToLinenumbers: int = Primitive(uint32_t) 
+    NumberOfRelocations: int = Primitive(uint16_t) 
+    NumberOfLinenumbers: int = Primitive(uint16_t) 
+    Characteristics: int = Primitive(uint32_t) 
 
 with open("C:\\Windows\\System32\\notepad.exe", "rb") as file:
     DATA = file.read(-1)
