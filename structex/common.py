@@ -1,25 +1,33 @@
 from abc import ABC
 from typing import Any
 
+class IllegalOperationError(Exception):
+    def __init__(self, *args: object) -> None:
+        super().__init__(*args)
+
+class PureVirtualCallError(Exception):
+    def __init__(self, *args: object) -> None:
+        super().__init__(*args)
+
 class ISerializable(ABC):
     @classmethod
     def serialize(cls, thing: Any) -> bytes:
-        raise NotImplementedError
+        raise PureVirtualCallError
         
     @classmethod
     def deserialize(cls, data: bytes) -> Any:
-        raise NotImplementedError
+        raise PureVirtualCallError
 
     @classmethod
     def get_size(cls) -> int:
-        raise NotImplementedError
+        raise PureVirtualCallError
 
 class IMemory(ABC):
     def read(self, address: int, count: int) -> bytes:
-        raise NotImplementedError
+        raise PureVirtualCallError
         
     def write(self, address: int, data: bytes) -> None:
-        raise NotImplementedError
+        raise PureVirtualCallError
 
 class IMemObject(ABC):
     def __init__(self, mem: IMemory, offset: int) -> None:

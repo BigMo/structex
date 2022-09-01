@@ -2,6 +2,7 @@ from typing import Sequence
 from structex.basetypes import Struct, StructLayout, int32_t, uint16_t, uint32_t, uint64_t, uint8_t
 from structex.common import IMemory
 from structex.fields import Array, FixedString, Instance, Primitive
+from structex.memory import BufferMemory, CachedMemory
 
 class IMAGE_DOS_HEADER(Struct):
     _layout: StructLayout = StructLayout.Sequential
@@ -95,24 +96,19 @@ class IMAGE_SECTION_HEADER(Struct):
     PointerToLinenumbers: int = Primitive(uint32_t) 
     NumberOfRelocations: int = Primitive(uint16_t) 
     NumberOfLinenumbers: int = Primitive(uint16_t) 
-    Characteristics: int = Primitive(uint32_t) 
+    Characteristics: int = Primitive(uint32_t)
+
+    def __str__(self) -> str:
+        return self.Name
+
+    def __repr__(self) -> str:
+        return self.Name
 
 with open("C:\\Windows\\System32\\notepad.exe", "rb") as file:
     DATA = file.read(-1)
 
-class BufferMemory(IMemory):
-    def __init__(self, buffer: bytes) -> None:
-        self._buffer = buffer
-
-    def read(self, address: int, count: int) -> bytes:
-        return self._buffer[address : address + count]
-
-    def write(self, address: int, data: bytes) -> None:
-        temp = bytearray(self._buffer)
-        temp[address: address + len(data)] = data
-        self._buffer = bytes(temp)
-
-mem = BufferMemory(DATA)
+mem_base = BufferMemory(DATA)
+mem = CachedMemory(mem_base, 10)
 
 pos = 0
 img_dos = IMAGE_DOS_HEADER(mem, pos)
@@ -127,3 +123,4 @@ sections = [
 ]
 
 print(img_dos)
+print()

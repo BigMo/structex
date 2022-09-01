@@ -3,7 +3,7 @@ import struct
 from typing import Any, Generic, Type, TypeVar
 
 from structex.basetypes import IField, Struct, uint32_t, uint64_t
-from structex.common import IMemory, ISerializable, IMemObject
+from structex.common import IMemory, ISerializable, IMemObject, IllegalOperationError
 
 
 W = TypeVar('W', Struct, ISerializable)
@@ -88,11 +88,11 @@ class Array(Generic[W], IField):
                 data = self.mem.read(self._get_element_address(key), self._cls.get_size())
                 return self._cls.deserialize(data)
             else:
-                raise NotImplementedError
+                raise IllegalOperationError("Can't perform __getitem__ for a key that's neither a Struct nor an ISerializable!")
 
         def __setitem__(self, key: int, value: W) -> None:
             if not issubclass(self._cls, ISerializable):
-                raise NotImplementedError
+                raise IllegalOperationError("Can't perform __setitem__ for a key that's not an ISerializable!")
             data = self._cls.serialize(value)
             self.mem.write(self._get_element_address(key), data)
 
@@ -114,7 +114,7 @@ class FixedString(IField):
         if self._add_null_terminator: value += '\0'
         data = value.encode(self._encoding)
         if len(data) > self._byte_length:
-            raise Exception("String too long")
+            raise IllegalOperationError(f"Supplied string is too long for this FixedString: {len(data)} > {self._byte_length}")
         mem.write(address, data)
 
     def get_size(self) -> int:
@@ -143,11 +143,11 @@ class Pointer(Generic[W], IField):
             data = self.mem.read(addr, self._cls.get_size())
             return self._cls.deserialize(data)
         else:
-            raise NotImplementedError
+            raise IllegalOperationError("Can't dereference a pointer that's neither of type Struct nor ISerializable!")
 
     def set_value(self, mem: IMemory, address: int, value: Any) -> None:
         if not issubclass(self._cls, ISerializable):
-            raise NotImplementedError
+            raise IllegalOperationError("Can't perform set_value for a reference that's not an ISerializable!")
 
         addr = self._get_address(mem, address)
         data = self._cls.serialize(value)

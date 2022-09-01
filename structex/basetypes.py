@@ -4,7 +4,7 @@ import struct
 from typing import Any, List, Type
 import inspect
 
-from structex.common import IMemory, ISerializable, IMemObject
+from structex.common import IMemory, ISerializable, IMemObject, IllegalOperationError, PureVirtualCallError
 
 class IField(ABC):
     def __init__(self, offset: int = None) -> None:
@@ -35,13 +35,13 @@ class IField(ABC):
         self.set_value(obj.mem, obj.offset + self._offset, value)
 
     def get_value(self, mem: IMemory, address: int) -> Any:
-        raise NotImplementedError
+        raise PureVirtualCallError
         
     def set_value(self, mem: IMemory, address: int, value: Any) -> None:
-        raise NotImplementedError
+        raise PureVirtualCallError
 
     def get_size(self) -> int:
-        raise NotImplementedError
+        raise PureVirtualCallError
 
 class StructLayout(Enum):
     Fixed = 0
@@ -64,9 +64,9 @@ class Struct(IMemObject):
                     largest = max(fields, key = lambda value: value.offset + value.get_size())
                     cls._size = largest.offset + largest.get_size()
                 case StructLayout.Sequential:
-                    raise Exception("")
+                    raise IllegalOperationError(f"Can't calculate the size of a sequential struct; it needs to be defined in the \"_size\" class-variable!")
                 case _:
-                    raise NotImplementedError
+                    raise IllegalOperationError(f"Can't calculate the size of a struct with an unknown StructLayout!")
 
         return cls._size
 
